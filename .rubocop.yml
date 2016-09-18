@@ -1,0 +1,38 @@
+Metrics/LineLength:
+  Max: 195
+
+Style/Next:
+  Enabled: false
+
+Style/WordArray:
+  Enabled: false
+
+Style/MutableConstant:
+  Enabled: false
+
+Metrics/AbcSize:
+  Max: 20
+
+Metrics/MethodLength:
+  Max: 20
+
+Metrics/CyclomaticComplexity:
+  Max: 8
+
+AllCops:
+  DisplayCopNames: true
+
+Style/CommentIndentation:
+  Enabled: false
+
+Style/GuardClause:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/StringLiterals:
+  Enabled: false
+
+Style/GlobalVars:
+  Enabled: false
