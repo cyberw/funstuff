@@ -4,6 +4,14 @@ require 'yaml'
 ENV['PATH'] = ENV['PATH'] + ':.'
 EXECUTE = ENV.fetch 'EXECUTE', false
 
+ask_A = 99999
+bid_A = 0
+
+ask_B = 99999
+bid_B = 0
+
+$open_instrument = nil
+
 def fe(*args)
   $driver.find_element(*args)
 end
@@ -40,15 +48,20 @@ rescue
   wait.until { fe(class: "search-control__control") }
 end
 
-
-def order(instrument, amount, limit)
-  action = amount < 0 ? 'sell' : 'buy'
+def open_i(instrument)
   fe(class: "search-control__control").click
   fe(class: "search-control__control").clear
   fe(class: "search-control__control").send_keys instrument
   sleep 1
   fe(class: "quick-order-search__products-list-item-title").click
-  sleep 1
+  wait.until { fe(class: "product-info__bbo-info-item-value") }
+  $open_instrument = instrument
+end
+
+def order(instrument, amount, limit)
+  action = amount < 0 ? 'sell' : 'buy'
+  open_i(instrument) if $open_instrument != instrument
+  fe(css: "[data-ng-if='params.showProductName']")
   fe(css: "[data-action='#{action}']").click
   fe(css: "[data-ng-model='orderData.number']").send_keys amount.to_s
   fe(css: "[data-ng-model='orderData.limit']").send_keys limit.to_s
@@ -61,8 +74,17 @@ def order(instrument, amount, limit)
     fe(class: "order-modal__footer-button_confirm").click
   end
   sleep 5
-  fe(class: "header__navigation-logo").click
 end
 
+def go_home
+  fe(class: "header__navigation-logo").click
+  $open_instrument = nil
+end
+
+open_i 'HMB'
+ask_B = fe(class: "product-info__bbo-info-item-value").text
+
+puts 'ask_B ' + ask_B
+exit
 order 'HMB', 10, 250.1
 order 'HMB', -10, 249.5
