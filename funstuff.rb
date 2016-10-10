@@ -1,14 +1,14 @@
 require "selenium-webdriver"
 require 'yaml'
-
+# rubocop:disable Lint/UselessAssignment
 ENV['PATH'] = ENV['PATH'] + ':.'
 EXECUTE = ENV.fetch 'EXECUTE', false
 
-ask_A = 99999
-bid_A = 0
+ask_a = 99999
+bid_a = 0
 
-ask_B = 99999
-bid_B = 0
+ask_b = 99999
+bid_b = 0
 
 $open_instrument = nil
 
@@ -82,9 +82,9 @@ def go_home
 end
 
 open_i 'HMB'
-ask_B = fe(class: "product-info__bbo-info-item-value").text
+ask_b = fe(class: "product-info__bbo-info-item-value").text
 
-puts 'ask_B ' + ask_B
-exit
+puts 'ask_b ' + ask_b
+
 order 'HMB', 10, 250.1
 order 'HMB', -10, 249.5

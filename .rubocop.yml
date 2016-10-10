@@ -36,3 +36,9 @@ Style/StringLiterals:
 
 Style/GlobalVars:
   Enabled: false
+
+Style/NumericLiterals:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
