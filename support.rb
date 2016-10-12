@@ -32,9 +32,10 @@ def login
 
   $driver.navigate.to ENV['FUNSTUFF']
 
+
   begin
-    wait.until { fe(class: "search-control__control") }
-  rescue
+    WAIT.until { fe(class: "search-control__control") }
+  rescue Selenium::WebDriver::Error::TimeOutError
     $driver.navigate.to ENV['FUNSTUFF_LOGIN']
     element = fe(:name, 'j_username')
     sleep 1
