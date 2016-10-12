@@ -22,7 +22,7 @@ $driver = Selenium::WebDriver.for :chrome
 
 $driver.navigate.to ENV['FUNSTUFF']
 
-wait = Selenium::WebDriver::Wait.new(timeout: 3)
+
 
 YAML.load_file("cookies.yml").each do |cookie|
   $driver.manage.add_cookie cookie
@@ -31,7 +31,7 @@ end
 $driver.navigate.to ENV['FUNSTUFF']
 
 begin
-  wait.until { fe(class: "search-control__control") }
+  Selenium::WebDriver::Wait.new(timeout: 3).until { fe(class: "search-control__control") }
 rescue
   $driver.navigate.to ENV['FUNSTUFF_LOGIN']
   element = fe(:name, 'j_username')
@@ -54,7 +54,7 @@ def open_i(instrument)
   fe(class: "search-control__control").send_keys instrument
   sleep 1
   fe(class: "quick-order-search__products-list-item-title").click
-  wait.until { fe(class: "product-info__bbo-info-item-value") }
+  Selenium::WebDriver::Wait.new(timeout: 3).until { fe(class: "product-info__bbo-info-item-value") }
   $open_instrument = instrument
 end
 
