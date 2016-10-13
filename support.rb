@@ -28,10 +28,9 @@ def login
   cookies = YAML.load_file("cookies.yml")
   cookies.each do |cookie|
     $driver.manage.add_cookie cookie
-  end if cookies
+  end if cookies # if cookies file exists but is empty, then this will be false
 
   $driver.navigate.to ENV['FUNSTUFF']
-
 
   begin
     WAIT.until { fe(class: "search-control__control") }
